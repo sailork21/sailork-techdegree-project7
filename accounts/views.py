@@ -52,7 +52,7 @@ def sign_up(request):
                 request,
                 "You're now a user! You've been signed in, too."
             )
-            return HttpResponseRedirect(reverse('accounts:create_profile')) # TODO: go to profile
+            return HttpResponseRedirect(reverse('accounts:edit_profile')) # TODO: go to profile
     return render(request, 'accounts/sign_up.html', {'form': form})
 
 
@@ -68,7 +68,7 @@ def edit_profile(request):
     if request.method == 'POST':
         form = forms.ProfileForm(request.POST, request.FILES)
         if form.is_valid():
-            profile.save()
+            form.save()
             messages.success(request, "Profile saved!")
             return HttpResponseRedirect(reverse('home'))
     return render(request, 'accounts/edit_profile.html', {'form': form})

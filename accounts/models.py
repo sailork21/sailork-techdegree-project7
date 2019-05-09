@@ -10,7 +10,7 @@ class Profile(models.Model):
     last_name = models.CharField(max_length=30)
     email = models.EmailField()
     confirm_email = models.EmailField()
-    date_of_birth = models.DateField()
+    date_of_birth = models.DateField(blank=True, null=True)
     bio = models.TextField()
     avatar = models.ImageField(upload_to='avatars/')
 
@@ -18,7 +18,7 @@ class Profile(models.Model):
 @receiver(post_save, sender=User)
 def create_user_profile(sender, instance, created, **kwargs):
     if created:
-        Profile.objects.create(user=instance)
+        Profile.objects.create(username=instance)
 
 @receiver(post_save, sender=User)
 def save_user_profile(sender, instance, **kwargs):
